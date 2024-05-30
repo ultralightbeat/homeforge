@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/PaymentModal.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/PaymentModal.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from 'react';
+import Order from './Order';
+import InputMask from 'react-input-mask';
+
+/**
+ * Функция, возвращающая компонент React, представляющий сообщение о пустой корзине.
+ * @returns {Component} Компонент React, отображающий сообщение о пустой корзине.
+ */
+const showNothing = () => {
+  return (
+    &lt;div className='empty'>
+      &lt;h2>Корзина пуста&lt;/h2>
+    &lt;/div>
+  );
+};
+
+/**
+ * Компонент модального окна оплаты.
+ * @extends {Component}
+ */
+export  class PaymentModal extends Component {
+  /**
+   * Создает экземпляр PaymentModal.
+   * @param {object} props - Свойства, переданные компоненту.
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      address: '',
+      cardNumber: '',
+      cardExpiry: '',
+      cardCVC: '',
+      fullName: '',
+      paymentMethod: null,
+      isPaymentSuccessful: false,
+      errorMessage: '',
+      bonusPoints: '',
+    };
+  }
+
+  /**
+   * Обработчик изменения способа оплаты.
+   * @param {string} method - Выбранный способ оплаты.
+   */
+  handlePaymentMethodChange = (method) => {
+    this.setState({ paymentMethod: method });
+  };
+
+  /**
+   * Обработчик изменения ввода данных.
+   * @param {object} e - Событие изменения ввода.
+   */
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  /**
+   * Обработчик изменения количества бонусных баллов.
+   * @param {object} e - Событие изменения ввода.
+   */
+  handleBonusPointsChange = (e) => {
+    this.setState({ bonusPoints: e.target.value });
+  };
+
+  /**
+   * Обработчик отправки формы оплаты.
+   * @param {object} e - Событие отправки формы.
+   */
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { paymentMethod, bonusPoints } = this.state;
+
+    if (!paymentMethod) {
+      this.setState({ errorMessage: 'Пожалуйста, выберите способ оплаты.' });
+      return;
+    }
+
+    if (paymentMethod === 'bonuses' &amp;&amp; (!bonusPoints || isNaN(bonusPoints) || bonusPoints &lt;= 0)) {
+      this.setState({ errorMessage: 'Пожалуйста, введите корректное количество бонусных баллов.' });
+      return;
+    }
+
+    // Симулируем успешную оплату
+    this.setState({ isPaymentSuccessful: true, errorMessage: '' }, () => {
+      setTimeout(() => {
+        this.props.onClose(); // Закрываем модальное окно
+        this.props.onClearCart(); // Очищаем корзину
+      }, 2000); // Задержка в 2 секунды перед закрытием модального окна
+    });
+  };
+
+  /**
+   * Вычисляет общую стоимость товаров.
+   * @returns {string} Общая стоимость товаров.
+   */
+  calculateTotal = () => {
+    return this.props.itemsForPayment
+      .reduce((total, item) => total + item.price * item.count, 0)
+      .toFixed(2);
+  };
+
+  /**
+   * Рендеринг компонента.
+   * @returns {JSX.Element} Элемент отображения модального окна оплаты.
+   */
+  render() {
+    const { paymentMethod, isPaymentSuccessful, errorMessage, bonusPoints } = this.state;
+
+    if (isPaymentSuccessful) {
+      return (
+        &lt;div className="payment-success">
+          &lt;h2>Оплата прошла успешно. Спасибо за заказ!&lt;/h2>
+        &lt;/div>
+      );
+    }
+
+    return (
+      &lt;div className="payment-modal-content shop-cart">
+        &lt;div className="order-items-container">
+          &lt;h3>Товары&lt;/h3>
+          {this.props.itemsForPayment.length > 0 ? (
+            &lt;>
+              &lt;div className="order-items">
+                {this.props.itemsForPayment.map((item) => (
+                  &lt;Order key={item.id} item={item} onDelete={this.props.onDelete} />
+                ))}
+              &lt;/div>
+              &lt;div className="total">
+                &lt;h3>Общая стоимость: {this.calculateTotal()}$&lt;/h3>
+              &lt;/div>
+            &lt;/>
+          ) : (
+            showNothing()
+          )}
+        &lt;/div>
+        &lt;div className="payment-form-container">
+          &lt;h3>Данные для оплаты&lt;/h3>
+          &lt;form onSubmit={this.handleSubmit} className="payment-form">
+            &lt;div>
+              &lt;label>ФИО:&lt;/label>
+              &lt;input
+                type="text"
+                name="fullName"
+                value={this.state.fullName}
+                onChange={this.handleChange}
+                required
+              />
+            &lt;/div>
+            &lt;div>
+              &lt;label>Адрес:&lt;/label>
+              &lt;input
+                type="text"
+                name="address"
+                value={this.state.address}
+                onChange={this.handleChange}
+                required
+              />
+            &lt;/div>
+            &lt;h3>Выберите способ оплаты&lt;/h3>
+            &lt;div className="payment-buttons-method">
+              &lt;button type="button" className="button-card" onClick={() => this.handlePaymentMethodChange('card')}>Картой&lt;/button>
+              &lt;button type="button" className="button-bonus" onClick={() => this.handlePaymentMethodChange('bonuses')}>Бонусами&lt;/button>
+            &lt;/div>
+
+            {errorMessage &amp;&amp; (
+              &lt;div className="error-message">
+                {errorMessage}
+              &lt;/div>
+            )}
+
+            {paymentMethod === 'card' &amp;&amp; (
+              &lt;div className="payment-form-information">
+                &lt;div>
+                  &lt;label>Номер карты:&lt;/label>
+                  &lt;InputMask
+                    mask="9999 9999 9999 9999"
+                    maskChar=" "
+                    name="cardNumber"
+                    value={this.state.cardNumber}
+                    onChange={this.handleChange}
+                    required
+                  >
+                    {(inputProps) => &lt;input {...inputProps} type="text" />}
+                  &lt;/InputMask>
+                &lt;/div>
+                &lt;div>
+                  &lt;label>Действует до:&lt;/label>
+                  &lt;InputMask
+                    mask="99/99"
+                    maskChar=" "
+                    name="cardExpiry"
+                    value={this.state.cardExpiry}
+                    onChange={this.handleChange}
+                    required
+                  >
+                    {(inputProps) => &lt;input {...inputProps} type="text" />}
+                  &lt;/InputMask>
+                  &lt;/div>
+                &lt;div>
+                  &lt;label>CVV:&lt;/label>
+                  &lt;InputMask
+                    mask="999"
+                    maskChar=" "
+                    name="cardCVC"
+                    value={this.state.cardCVC}
+                    onChange={this.handleChange}
+                    required
+                  >
+                    {(inputProps) => &lt;input {...inputProps} type="text" />}
+                  &lt;/InputMask>
+                &lt;/div>
+              &lt;/div>
+            )}
+
+            {paymentMethod === 'bonuses' &amp;&amp; (
+              &lt;div className='bonuses-info'>
+                &lt;p>Ваши бонусы: 1000 🎟️&lt;/p>
+                &lt;input
+                  type="number"
+                  name="bonusPoints"
+                  value={bonusPoints}
+                  onChange={this.handleBonusPointsChange}
+                  min="1"
+                  required
+                />
+              &lt;/div>
+            )}
+            &lt;div className="payment-buttons">
+              &lt;button type="submit" className="button">Оплатить&lt;/button>
+              &lt;button type="button" className="close-modal-button" onClick={this.props.onClose}>Закрыть&lt;/button>
+            &lt;/div>
+          &lt;/form>
+        &lt;/div>
+      &lt;/div>
+    );
+  }
+}
+
+               
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="CartManager.html">CartManager</a></li><li><a href="Categories.html">Categories</a></li><li><a href="Item.html">Item</a></li><li><a href="Items.html">Items</a></li><li><a href="Order.html">Order</a></li><li><a href="PaymentModal.html">PaymentModal</a></li><li><a href="ShowFullItem.html">ShowFullItem</a></li><li><a href="SortByName.html">SortByName</a></li><li><a href="SortByPrice.html">SortByPrice</a></li></ul><h3>Global</h3><ul><li><a href="global.html#showNothing">showNothing</a></li><li><a href="global.html#showOrders">showOrders</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Thu May 30 2024 20:46:09 GMT+0300 (Москва, стандартное время)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

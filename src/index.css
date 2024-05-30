@@ -1,13 +1,573 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+*{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  background: #ffff;
+  color: #222;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+
+}
+.wrapper{
+  width: 1280px;
+  margin: 50px auto;
+}
+
+header {
+  position: relative;
+}
+
+header .logo{
+  font-weight: 600;
+  font-size: 20px;
+}
+header ul.nav{
+  float: right;
+  list-style: none;
+}
+
+header ul.nav li{
+  display:inline;
+  margin-left: 25px;
+  cursor: pointer;
+  transition: opacity 500ms ease;
+}
+
+header ul.nav li:hover{
+  opacity: 0.5;
+}
+
+header .shop-cart-button{
+  float: right;
+  cursor: pointer;
+  transition: color, transform 500ms ease;
+}
+
+header .shop-cart-button:hover,
+header .shop-cart-button.active{
+  color: #dc3d3d;
+  transform: scale(1.5);
+}
+
+header .shop-cart {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  width: 400px;
+  background: #fafafa;
+  -webkit-box-shadow: 4px 5px 15px -7px #606060; 
+  box-shadow: 4px 5px 15px -7px #606060;
+  z-index: 1000;
+  padding: 20px;
+  padding-bottom: 0;
+}
+
+header .shop-cart .empty h2{
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+header .shop-cart .item {
+  width: 100%;
+  float: left;
+  margin-bottom: 20px;
+}
+header .shop-cart .item .item-price{
+  margin-left : 0px;
+}
+
+header .shop-cart .item img {
+  width: 70px;
+  float: left;
+  margin-right: 20px;
+}
+
+header .shop-cart .item h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+
+
+header .shop-cart .item h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+header .shop-cart .item p {
+  color: #797979;
+  font-weight: 600;
+}
+
+header .shop-cart .item .count {
+  margin-left: 10px;
+}
+
+header .shop-cart .item .delete-icon {
+  color: #ca5252;
+  float: right;
+  position: relative;
+  top: -25px;
+  cursor: pointer;
+  transition: color, transform 500ms ease;
+}
+
+header .shop-cart .summa {
+  float: left;
+  width: 100%;
+  font-weight: 600;
+  font-size: 20px;
+  
+}
+
+
+header .presentation{
+  margin: 50px 0;
+  background: url('./img/people.jpg') no-repeat;
+  width: 100%;
+  height: 500px;
+  background-size: cover;
+  background-position: center center;
+  background-blend-mode: multiply;
+  background-color: #bcbcbc;
+  position: relative;
+}
+
+header .presentation::after{
+  content: "Лучшие товары для дома и ремонта";
+  position: absolute;
+  top: 100px;
+  left: 50px;
+  width: 400px;
+  font-size: 40px;
+  font-weight: 600;
+  color: #fff;
+}
+
+header .presentation::before{
+  content: "по низким ценам";
+  position: absolute;
+  top: 250px;
+  left: 50px;
+  width: 300px;
+  font-size: 15px;
+  font-weight: 300;
+  color: #fff;
+}
+
+#Модель 
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.modal-content {
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content button {
+  margin-top: 20px;
+}
+
+
+.categories div,
+.categories-list .cat-button,
+.categories-list .price-button,
+.categories-list .title-button{
+  display: inline-block;
+  background: #f2f2f2;
+  border-radius: 50px;
+  padding: 10px 20px;
+  margin-bottom: 25px;
+  margin-right: 15px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 500ms ease;
+
+}
+
+.categories div:hover,
+.categories-list .cat-button:hover,
+.categories-list .price-button:hover,
+.categories-list .title-button:hover{
+  border-color: silver;
+  transform: scale(1.1);
+
+}
+
+.full-item{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #222222c5;
+  z-index: 9999;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+}
+
+.full-item > div{
+  width: 600px;
+  position: relative;
+  margin: 10% auto;
+  padding: 40px 30px;
+  background: #fff;
+  border-radius: 9px;
+}
+
+.payment-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* затемнение фона */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.payment-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 90%;
+  width: 1000px; /* увеличенное значение */
+  height: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.payment-button {
+	display: inline-block;
+  background: #f2f2f2;
+  border-radius: 50px;
+  padding: 10px 20px;
+  margin-right: 15px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 500ms ease;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  float: right;
+  position: relative;
+  top: -30px;
+
+}
+.payment-button:hover,
+.close-modal-button:hover,
+.button-bonus:hover,
+.button-card:hover,
+.payment-form button[type="submit"]:hover {
+  border-color: silver;
+  transform: scale(1.1);
+}
+
+.button-bonus,
+.button-card{
+  margin-right: 10px;
+}
+
+.close-modal-button,
+.button-bonus,
+.button-card,
+.payment-form button[type="submit"] {
+	display: inline-block;
+  background: #f2f2f2;
+  border-radius: 50px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 500ms ease;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  float: center;
+  position: relative;
+  margin-top: 10px;
+}
+
+.payment-buttons {
+  display: flex;
+  justify-content: space-between; /* Распределить пространство между кнопками */
+  align-items: center; /* Выровнять элементы по центру */
+  margin-top: 20px; /* Добавить немного отступа сверху */
+}
+
+
+
+.delete-icon {
+  color: #ca5252;
+  float: right;
+  position: relative;
+  cursor: pointer;
+  transition: color, transform 500ms ease;
+  margin-left: auto;
+}
+
+.delete-icon:hover {
+  color: #d83030;
+  transform: scale(1.5);
+}
+
+.payment-modal-content {
+  display: flex;
+  align-items: flex-start;
+}
+
+
+
+.payment-form-container {
+  flex: 1;
+  align-items: flex-start;
+}
+
+.order-items-container {
+  flex: 1;
+
+  padding-right: 20px;
+}
+.order-items-container .total {
+  margin-top: 30px;
+}
+
+
+.order-items-container .empty h2{
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+}
+
+.bonuses-info {
+  display: flex;
+  align-items: center;
+}
+
+.bonuses-info p {
+  margin: 0; /* Убираем отступы у параграфа */
+
+  width: 410px; /* Задаем меньшую ширину для поля ввода */
+}
+
+.bonuses-info input {
+  width: 20px; /* Задаем меньшую ширину для поля ввода */
+  padding: 5px; /* Добавляем внутренние отступы для удобства */
+  margin-top: 20px;
+
+}
+
+
+
+.payment-form button[type="submit"] {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+}
+
+.close-modal-button {
+  justify-self: end;
+  margin-left: 40px;
+}
+
+.payment-modal-content .item img {
+  width: 70px;
+  float: left;
+  margin-right: 20px;
+}
+
+.payment-modal-content .order-items {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  max-height: 400px; /* Пример фиксированной высоты */
+  overflow-y: auto;
+  padding-right: 20px;
+  margin-top: 30px;
+  
+}
+
+.payment-modal-content .item {
+  display: flex;
+  align-items: center;
+
+}
+
+.payment-modal-content .item h2 {
+  margin-left: -10px;
+}
+
+.payment-form {
+  margin-top: 20px;
+}
+
+.payment-form div {
+  margin-bottom: 10px;
+}
+
+.payment-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+т
+.payment-form input[type="text"]:focus,
+.payment-form input[type="tel"]:focus {
+  border: 1px solid #ccc; /* Цвет рамки при фокусе */
+  outline: none;
+}
+
+.payment-form input,
+.payment-form input[type="tel"] {
+  display: inline-block;
+  background: #f2f2f2;
+  border-radius: 50px;
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  border: 1px solid transparent;
+  transition: all 500ms ease;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+
+.payment-success {
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+}
+
+
+.shop-cart .item {
+  width: 100%;
+  float: left;
+  margin-bottom: 20px;
+}
+
+.shop-cart .item img {
+  width: 80px;
+  float: left;
+  margin-right: 20px;
+}
+
+.shop-cart .item h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.shop-cart .item .item-price {
+
+  margin-left: -10px;
+}
+
+
+.shop-cart .item p {
+  color: #797979;
+  font-weight: 600;
+  margin-left: -10px;
+}
+
+.shop-cart .empty h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+
+/* Главная страница*/
+
+main{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+main .item{
+  width: 30%;
+  margin-bottom: 50px;
+  background: #f5f5f5;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+main .item img, .full-item img{
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  transition: transform 500ms ease;
+  cursor: pointer;
+}
+
+main .item img:hover, .full-item img:hover{
+  transform: scale(1.05);
+}
+
+main h2, .full-item h2,
+main p, .full-item p,
+main b, .full-item b{
+  margin: 10px 20px;
+  color: #333;
+  
+}
+
+main b, .full-item b{
+  color: #5fa36a;
+}
+
+main .add-to-cart,
+.full-item .add-to-cart{
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  background: #ca5252;
+  width: 35px;
+  text-align: center;
+  line-height: 35px;
+  color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 500ms ease;
+}
+main .add-to-cart:hover,
+.full-item .add-to-cart:hover{
+  transform: scale(1.05) translateY(-5px);
+}  
+
+footer{
+  text-align: center;
+  margin: 100px;
 }
