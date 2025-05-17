@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Order from './Order';
+import { render, screen, fireEvent } from '@testing-library/react';
 import InputMask from 'react-input-mask';
+
+
 
 /**
  * Функция, возвращающая компонент React, представляющий сообщение о пустой корзине.
@@ -37,13 +40,47 @@ export  class PaymentModal extends Component {
       bonusPoints: '',
     };
   }
+  handleBonusPayment = () => {
+    const { itemsForPayment } = this.props;
+    const bonusCost = 0.2; // Предположим, что стоимость одного бонуса составляет 20% от стоимости товара
+    const totalCost = itemsForPayment.reduce((total, item) => total + item.total, 0);
+    const totalBonusCost = bonusCost * totalCost;
+    
+    if (totalBonusCost <= this.props.availableBonus) {
+      // Если бонусов достаточно для оплаты
+      // Вычитаем стоимость в бонусах
+      // Обновляем состояние бонусов и закрываем модальное окно
+      this.setState(prevState => ({
+        availableBonus: prevState.availableBonus - totalBonusCost,
+      }), () => {
+        // Дополнительные действия после обновления состояния
+        this.props.onClose();
+        // Обновляем бонусы в родительском компоненте
+        this.props.onUpdateBonusPoints(this.state.availableBonus);
+      });
+    } else {
+      // Если бонусов недостаточно для оплаты
+      alert('Недостаточно бонусов для оплаты');
+    }
+  }
 
+  handleCardPayment = () => {
+    const { itemsForPayment } = this.props;
+    const totalCost = itemsForPayment.reduce((total, item) => total + item.total, 0);
+    const cardPaymentAmount = totalCost - this.props.availableBonus;
+    
+    // Обновляем состояние суммы для оплаты картой
+    this.setState({ cardPaymentAmount }, () => {
+      // Дополнительные действия после обновления состояния
+      // Например, показать модальное окно для ввода данных карты
+    });
+  }
   /**
    * Обработчик изменения способа оплаты.
    * @param {string} method - Выбранный способ оплаты.
    */
   handlePaymentMethodChange = (method) => {
-    this.setState({ paymentMethod: method });
+    this.setState({ paymentMethod: method, errorMessage: '' }); // Очищаем сообщение об ошибке при смене типа оплаты
   };
 
   /**
@@ -69,24 +106,38 @@ export  class PaymentModal extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { paymentMethod, bonusPoints } = this.state;
-
+    const totalCost = parseFloat(this.calculateTotal()); // Парсим общую стоимость как число
+    const userBonusPoints = parseFloat(bonusPoints); // Парсим введенные пользователем бонусы как число
+  
     if (!paymentMethod) {
       this.setState({ errorMessage: 'Пожалуйста, выберите способ оплаты.' });
       return;
     }
-
-    if (paymentMethod === 'bonuses' && (!bonusPoints || isNaN(bonusPoints) || bonusPoints <= 0)) {
+  
+    if (paymentMethod === 'bonuses' && (!userBonusPoints || isNaN(userBonusPoints) || userBonusPoints <= 0)) {
       this.setState({ errorMessage: 'Пожалуйста, введите корректное количество бонусных баллов.' });
       return;
     }
-
+  
+    if (paymentMethod === 'bonuses' && userBonusPoints < totalCost) {
+      this.setState({ errorMessage: 'Недостаточно бонусов для оплаты.' });
+      return;
+    }
+  
     // Симулируем успешную оплату
     this.setState({ isPaymentSuccessful: true, errorMessage: '' }, () => {
       setTimeout(() => {
         this.props.onClose(); // Закрываем модальное окно
         this.props.onClearCart(); // Очищаем корзину
+        if (paymentMethod === 'bonuses') {
+          // Обновляем бонусы в родительском компоненте
+          this.props.onUpdateBonusPoints(this.props.availableBonus - totalCost);
+        }
       }, 2000); // Задержка в 2 секунды перед закрытием модального окна
     });
+  };
+  updateBonusPoints = (newBonusPoints) => {
+    this.setState({ bonusPoints: newBonusPoints });
   };
 
   /**
@@ -95,8 +146,7 @@ export  class PaymentModal extends Component {
    */
   calculateTotal = () => {
     return this.props.itemsForPayment
-      .reduce((total, item) => total + item.price * item.count, 0)
-      .toFixed(2);
+      .reduce((total, item) => total + item.price * item.count, 0);
   };
 
   /**
@@ -126,7 +176,7 @@ export  class PaymentModal extends Component {
                 ))}
               </div>
               <div className="total">
-                <h3>Общая стоимость: {this.calculateTotal()}$</h3>
+                <h3>Общая стоимость: {this.calculateTotal()}₽</h3>
               </div>
             </>
           ) : (
@@ -158,7 +208,7 @@ export  class PaymentModal extends Component {
             </div>
             <h3>Выберите способ оплаты</h3>
             <div className="payment-buttons-method">
-              <button type="button" className="button-card" onClick={() => this.handlePaymentMethodChange('card')}>Картой</button>
+              <button type="button" className="button-card"  onClick={() => this.handlePaymentMethodChange('card')}>Картой</button>
               <button type="button" className="button-bonus" onClick={() => this.handlePaymentMethodChange('bonuses')}>Бонусами</button>
             </div>
 
@@ -212,19 +262,22 @@ export  class PaymentModal extends Component {
               </div>
             )}
 
-            {paymentMethod === 'bonuses' && (
+            {/* {paymentMethod === 'bonuses' && (
               <div className='bonuses-info'>
                 <p>Ваши бонусы: 1000 🎟️</p>
                 <input
                   type="number"
                   name="bonusPoints"
                   value={bonusPoints}
-                  onChange={this.handleBonusPointsChange}
+                  onChange={(e) => {
+                    this.handleBonusPointsChange(e);
+                    this.props.onUpdateBonusPoints(e.target.value);
+                  }}
                   min="1"
                   required
                 />
               </div>
-            )}
+            )} */}
             <div className="payment-buttons">
               <button type="submit" className="button">Оплатить</button>
               <button type="button" className="close-modal-button" onClick={this.props.onClose}>Закрыть</button>

@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+
+body {
+  background: #ffff;
+  color: #222;
+  font-family: "Montserrat", sans-serif;
+
+}
+
+
+
+/* Мобильный стиль */
+@media (max-width: 768px) {
+  .item {
+    width: 100%;  /* На маленьких экранах карточки товаров занимают всю ширину */
+    margin: 10px 0;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  
+}
+
+/* На экранах меньше 480px */
+@media (max-width: 480px) {
+  .item {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+
+}
+  

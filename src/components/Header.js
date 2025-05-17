@@ -11,7 +11,6 @@ import Order from './Order';
  * @returns {JSX.Element} Элемент списка заказов.
  */
 const showOrders = (props) => {
-  const totalItems = props.orders.reduce((acc, order) => acc + order.count, 0);
   const totalPrice = props.orders.reduce((acc, order) => acc + order.price * order.count, 0);
 
   return (
@@ -19,7 +18,7 @@ const showOrders = (props) => {
       {props.orders.map(el => (
         <Order onDelete={props.onDelete} key={el.id} item={el} />
       ))}
-      <p className='summa'>Сумма: {new Intl.NumberFormat().format(totalPrice.toFixed(2))}$</p>
+      <p className='summa'>Сумма: {totalPrice}₽</p>
       <button className='payment-button' onClick={() => props.openPaymentModal(props.orders)}>Перейти к оплате</button>
     </div>
   );
@@ -51,11 +50,16 @@ export default function Header(props) {
       <div>
         <span className='logo'>House staff</span>
         <ul className='nav'>
-          <li >О нас</li>
-          <li >Контакты</li>
+          <li>О нас</li>
+          <li>Контакты</li>
           <li>Кабинет</li>
         </ul>
-        <FaShoppingCart onClick={() => setCartOpen(cartOpen => !cartOpen)} className={`shop-cart-button ${cartOpen && 'active'}`} />
+        <FaShoppingCart 
+          onClick={() => setCartOpen(cartOpen => !cartOpen)} 
+          className={`shop-cart-button ${cartOpen && 'active'}`} 
+          role="button" 
+          aria-label="shopping cart" 
+        />
         {cartOpen && (
           <div className='shop-cart'>
             {props.orders.length > 0 ? showOrders(props) : showNothing()}

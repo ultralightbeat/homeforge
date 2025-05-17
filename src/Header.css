@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+/* Мобильный стиль (на экранах меньше 768px) */
+@media (max-width: 768px) {
+  header .nav {
+    gap: 15px;
+    margin-left: 15px; /* Уменьшаем отступ слева */
+    padding-right: 20px;
+  }
+
+  header .nav li {
+    margin: 5px 0;
+  }
+
+  .logo{
+    padding: 20px;
+  }
+}
+
+/* Для маленьких экранов (меньше 480px) */
+@media (max-width: 480px) {
+  header .nav {
+    gap: 10px;
+    margin-left: 10px; /* Уменьшаем отступ слева */
+    padding-right: 20px;
+  }
+
+  header .nav li {
+    margin: 3px 0;
+  }
+  .logo{
+    padding: 20px;
+  }
+  
+}

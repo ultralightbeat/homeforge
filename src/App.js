@@ -7,6 +7,9 @@ import ShowFullItem from "./components/ShowFullItem";
 import PaymentModal from "./components/PaymentModal";
 import CartManager from "./components/CartManager";
 import { SortByName, SortByPrice } from "./components/SortingStrategies";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 /**
  * Основной компонент приложения.
@@ -35,7 +38,7 @@ class App extends React.Component {
           img: "table1.webp",
           desc: "Стол на 4-6 персон из массива акации, натурального материала с естественными вариациями рисунка и цвета",
           category: "tables",
-          price: "56.49",
+          price: "8999",
           detailedDesc: "Прочный и стильный стол который идеально подходит для использования во дворе или на террасе. Он выполнен из высококачественной древесины акации, что делает его прочным и долговечным. Стол имеет простой и современный дизайн и легко вписывается в любой садовый ландшафт."
         },
         {
@@ -44,7 +47,7 @@ class App extends React.Component {
           img: "carpet.png",
           desc: "Ковер ручной работы с персидским орнаментом из длинноволокнистой шерсти",
           category: "carpets",
-          price: "135.04",
+          price: "17450",
           detailedDesc: "Ковер сделан мастерами в персидском стиле и представляет собой уникальное произведение искусства. Изготовлен из высококачественной шерсти, он обеспечивает мягкость и комфорт при ходьбе. С персидским орнаментом он станет элегантным дополнением к вашему интерьеру."
         },
         {
@@ -53,7 +56,7 @@ class App extends React.Component {
           img: "grill.jpg",
           desc: "Передвижной мангал, который включает в себя основные возможности стационарных мангалов",
           category: "appliances",
-          price: "35.99",
+          price: "15670",
           detailedDesc: "Портативный гриль идеально подходит для пикников, кемпинга и других мероприятий на свежем воздухе. Он легко переносится благодаря своим компактным размерам, но при этом предлагает все возможности стационарных мангалов. Высококачественные материалы и прочная конструкция обеспечивают долговечность и надежность гриля."
         },
         {
@@ -62,7 +65,7 @@ class App extends React.Component {
           img: "scissors.jpg",
           desc: "Инструмент для быстрой обрезки веток и подравнивания кустарников",
           category: "tools",
-          price: "5.90",
+          price: "799",
           detailedDesc: "Отличное решение для ухода за вашим садом. Их острые лезвия обеспечивают чистый и аккуратный срез, а удобные рукоятки делают их легкими в использовании. Идеальны для обрезки веток и формирования кустарников."
         },
         {
@@ -71,7 +74,7 @@ class App extends React.Component {
           img: "svetilnik.jpg",
           desc: "Практичное решение для уличного освещения в винтажном стиле",
           category: "light",
-          price: "10.99",
+          price: "1299",
           detailedDesc: "Данный стильный светильник добавит элегантность и атмосферу ретро в ваш сад или на террасу. Он обеспечивает яркое и приятное освещение, создавая уютную атмосферу. Его уникальный дизайн и прочная конструкция делают его идеальным выбором для уличного освещения."
         },
         {
@@ -80,7 +83,7 @@ class App extends React.Component {
           img: "hammock.jpg",
           desc: "Удобный гамак для отдыха на природе",
           category: "outdoor",
-          price: "29.99",
+          price: "3500",
           detailedDesc: "Уютный гамак станет идеальным спутником для вашего отдыха на природе. Он легкий и компактный, легко устанавливается и складывается, что делает его идеальным выбором для кемпинга, пикника или просто для отдыха во дворе.",
         },
         {
@@ -89,7 +92,7 @@ class App extends React.Component {
           img: "picnic-basket.webp",
           desc: "Корзина с пикник-принадлежностями для приятного времяпрепровождения на свежем воздухе",
           category: "outdoor",
-          price: "39.99",
+          price: "350",
           detailedDesc: "Все необходимое для приятного времяпрепровождения на свежем воздухе. В комплекте вы найдете посуду, столовые приборы и прочие удобства, чтобы создать атмосферу уюта и комфорта во время пикника.",
         },
         {
@@ -98,7 +101,7 @@ class App extends React.Component {
           img: "folding-chair.jpg",
           desc: "Удобный складной стул для отдыха на природе",
           category: "outdoor",
-          price: "19.99",
+          price: "2300",
           detailedDesc: "Легкий и компактный стул, легко переносится и складывается в удобную сумку для транспортировки. Идеальный выбор для кемпинга, пикника или рыбалки.",
         },
         {
@@ -107,7 +110,7 @@ class App extends React.Component {
           img: "flower-stand.webp",
           desc: "Декоративная подставка для выращивания цветов и растений",
           category: "garden",
-          price: "24.99",
+          price: "1567",
           detailedDesc: "Эта декоративная подставка станет не только практичным решением для размещения цветов и растений, но и добавит изюминку в ваш ландшафтный дизайн.",
         },
         {
@@ -116,7 +119,7 @@ class App extends React.Component {
           img: "garden-shovel.jpg",
           desc: "Прочная и удобная лопата для работ в саду и на огороде",
           category: "tools",
-          price: "17.99",
+          price: "599",
           detailedDesc: "Благодаря этой садовой лопате вы сможете привести свой сад в порядок без лишних усилий. Эргономичный дизайн и легкий вес инструмента сделают работу комфортной и приятной.",
         },
         {
@@ -125,7 +128,7 @@ class App extends React.Component {
           img: "axe2.jpg",
           desc: "Мощный топор для раскола дров",
           category: "tools",
-          price: "34.99",
+          price: "599",
           detailedDesc: "С этим топором, оснащенным прочным стальным лезвием и удобной ручкой, вы справитесь с любой задачей легко и быстро. Идеальный инструмент для дачи, сада или кемпинга.",
         },
         {
@@ -134,8 +137,17 @@ class App extends React.Component {
           img: "hacksaw.webp",
           desc: "Инструмент для резки металлических изделий",
           category: "tools",
-          price: "15.99",
+          price: "978",
           detailedDesc: "Ножовка по металлу с прочной стальной рамой и эргономичной рукояткой позволит вам с легкостью пилить трубы, листы металла и другие материалы."
+        },
+        {
+          id: 13,
+          title: "Гвоздь кровельный",
+          img: "nail.png",
+          desc: "Гвоздь рассыпной кровельный RN 35/40 BKRI с кольцевой накаткой оцинкованный / Цена за 1кг, шаг 200г",
+          category: "tools",
+          price: "150",
+          detailedDesc: "Гвозди  изготавливаются из высококачественной низкоуглеродистой стали. Имеется цинковое покрытие, которое защищает изделие от коррозии, что расширяет сферу применения."
         }
       ],
       showFullItem: false,
@@ -144,7 +156,9 @@ class App extends React.Component {
       isAboutModalOpen: false,
       isContactModalOpen: false,
       selectedItemsForPayment: [],
-      sortStrategy: new SortByName()
+      sortStrategy: new SortByName(),
+      availableBonus: 1000, 
+      cardPaymentAmount: 1000 
     }
     this.state.currentItems = this.state.items;
 
@@ -253,8 +267,10 @@ class App extends React.Component {
    * @param {number} id - Идентификатор заказа.
    */
   deleteOrder(id) {
-    CartManager.deleteOrder(id);
-    this.setState({ orders: CartManager.getOrders() });
+    this.setState(
+      { orders: this.state.orders.filter((el) => el.id !== id) },
+      () => localStorage.setItem('cart', JSON.stringify(this.state.orders))
+    );
   }
 
   /**
@@ -262,9 +278,16 @@ class App extends React.Component {
    * @param {object} item - Элемент для добавления.
    */
   addToOrder(item) {
-    CartManager.addOrder(item);
+    if (item.isWeightItem) {
+      const total = parseFloat(item.price) * 0.2; // Цена за 200г
+      CartManager.addOrder({ ...item, total });
+    } else {
+      CartManager.addOrder({ ...item, count: 1 });
+    }
     this.setState({ orders: CartManager.getOrders() });
   }
+  
+  
 
   /**
    * Очищает корзину заказов.
@@ -310,7 +333,9 @@ class App extends React.Component {
                 itemsForPayment={this.state.orders}
                 onClose={this.closePaymentModal}
                 onDelete={this.deleteOrder}
-                onClearCart={this.handleClearCart} 
+                onClearCart={this.handleClearCart}
+                availableBonus={this.state.availableBonus}
+                onUpdateBonusPoints={this.UpdateBonusPoints}
               />
             </div>
           </div>

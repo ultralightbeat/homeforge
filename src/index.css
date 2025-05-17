@@ -43,10 +43,15 @@ header ul.nav li:hover{
   opacity: 0.5;
 }
 
+header .shop-cart{
+  width: 700px;
+}
+
 header .shop-cart-button{
   float: right;
   cursor: pointer;
   transition: color, transform 500ms ease;
+  margin-top: 4px;
 }
 
 header .shop-cart-button:hover,
@@ -105,27 +110,33 @@ header .shop-cart .item p {
   font-weight: 600;
 }
 
-header .shop-cart .item .count {
+header .shop-cart .item {
   margin-left: 10px;
 }
+
 
 header .shop-cart .item .delete-icon {
   color: #ca5252;
   float: right;
   position: relative;
-  top: -25px;
   cursor: pointer;
   transition: color, transform 500ms ease;
 }
 
+header .shop-cart .item .delete-icon:hover {
+  color: #d83030;
+  transform: scale(1.5);
+}
+
 header .shop-cart .summa {
   float: left;
+  margin-left: 10px;
   width: 100%;
   font-weight: 600;
   font-size: 20px;
+
   
 }
-
 
 header .presentation{
   margin: 50px 0;
@@ -153,7 +164,7 @@ header .presentation::after{
 header .presentation::before{
   content: "по низким ценам";
   position: absolute;
-  top: 250px;
+  top: 280px;
   left: 50px;
   width: 300px;
   font-size: 15px;
@@ -221,27 +232,6 @@ header .presentation::before{
 
 }
 
-.full-item{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #222222c5;
-  z-index: 9999;
-  overflow: auto;
-  display: flex;
-  align-items: center;
-}
-
-.full-item > div{
-  width: 600px;
-  position: relative;
-  margin: 10% auto;
-  padding: 40px 30px;
-  background: #fff;
-  border-radius: 9px;
-}
 
 .payment-modal-overlay {
   position: fixed;
@@ -272,7 +262,6 @@ header .presentation::before{
   background: #f2f2f2;
   border-radius: 50px;
   padding: 10px 20px;
-  margin-right: 15px;
   cursor: pointer;
   border: 1px solid transparent;
   transition: all 500ms ease;
@@ -280,7 +269,7 @@ header .presentation::before{
   font-weight: 300;
   float: right;
   position: relative;
-  top: -30px;
+  top: -20px;
 
 }
 .payment-button:hover,
@@ -324,14 +313,17 @@ header .presentation::before{
 
 
 
+
 .delete-icon {
   color: #ca5252;
-  float: right;
-  position: relative;
+  position: absolute;
+  right: 20px; /* Подгоняем под размер блока */
+  top: 45%;
+  transform: translateY(-50%); /* Центрируем по вертикали */
   cursor: pointer;
   transition: color, transform 500ms ease;
-  margin-left: auto;
 }
+
 
 .delete-icon:hover {
   color: #d83030;
@@ -471,38 +463,70 @@ header .presentation::before{
 }
 
 
-.shop-cart .item {
-  width: 100%;
-  float: left;
-  margin-bottom: 20px;
+.shop-cart {
+  width: 100%; /* Или установите max-width, если хотите ограничить максимальную ширину */
+  max-width: 1200px; /* Максимальная ширина */
+  margin: 0 auto; /* Центрирование контейнера */
+  padding: 20px;
 }
+
+
+.shop-cart .item {
+  width: 100%; /* Это уже установлено */
+  max-width: 800px; /* Добавьте это для ограничения максимальной ширины каждого товара */
+  margin: 0 auto 20px; /* Центрирование каждого товара */
+  position: relative; /* Чтобы .delete-icon правильно располагалась */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 
 .shop-cart .item img {
   width: 80px;
-  float: left;
-  margin-right: 20px;
+  height: auto;
+  
 }
 
 .shop-cart .item h2 {
   font-size: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  margin-left: -1px;
 }
 
 .shop-cart .item .item-price {
-
-  margin-left: -10px;
+  font-weight: bold;
+  margin-left: 0;
 }
-
 
 .shop-cart .item p {
   color: #797979;
   font-weight: 600;
-  margin-left: -10px;
+  margin-left: 0;
 }
 
-.shop-cart .empty h2 {
-  font-size: 20px;
-  margin-bottom: 20px;
+.shop-cart .checkout-button {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 30px auto 0; /* Смещаем кнопку ниже */
+  padding: 12px;
+  background: #ff4500;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.shop-cart .checkout-button:hover {
+  background: #e03c00;
 }
 
 
@@ -526,7 +550,6 @@ main .item{
 
 main .item img, .full-item img{
   width: 100%;
-  border-radius: 10px 10px 0 0;
   transition: transform 500ms ease;
   cursor: pointer;
 }
@@ -571,3 +594,4 @@ footer{
   text-align: center;
   margin: 100px;
 }
+

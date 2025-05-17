@@ -14,15 +14,32 @@ export class ShowFullItem extends Component {
   render() {
     return (
       <div className='full-item'>
+        
+        <div className='item-details'>
+
         <div>
           {/* Изображение товара */}
-          <img src={"./img/" + this.props.item.img} onClick={() => this.props.onShowItem(this.props.item)} />
+          <img className='item-img' src={"./img/" + this.props.item.img} onClick={() => this.props.onShowItem(this.props.item)} />
         </div>
-        <div className='item-details'>
+          <div className='item-details'>
           <h2>{this.props.item.title}</h2>
           {/* Полное описание товара */}
-          <p>{this.props.item.detailedDesc}</p>
-          <b>{this.props.item.price}$</b>
+          <p className='item-details'>{this.props.item.detailedDesc}</p>
+          <b>{this.props.item.price}₽</b>
+          {this.props.item.isWeightItem && (
+          <div>
+            <label>
+              Вес (кг):
+              <input
+                type="number"
+                value={this.props.weight[this.props.item.id] || ''}
+                onChange={(e) => this.props.onWeightChange(e, this.props.item.id)}
+              />
+            </label>
+          </div>
+        )}
+        </div>
+          
           {/* Кнопка для добавления товара в корзину */}
           <div className='add-to-cart' onClick={() => this.props.onAdd(this.props.item)}>+</div>
         </div>

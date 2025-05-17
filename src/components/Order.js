@@ -25,10 +25,10 @@ export class Order extends Component {
         <div className="item-details">
           <h2>{this.props.item.title}</h2>
           <div className="item-details">
-            <span className="item-price">{this.props.item.price}$</span>
+            <span className="item-price">{this.props.item.price}₽</span>
             <span className='count'>x{this.props.item.count}</span>
             <p className="total-price">
-              {new Intl.NumberFormat().format((this.props.item.price * this.props.item.count).toFixed(2))}$
+              {new Intl.NumberFormat().format((this.props.item.price * this.props.item.count))}₽
             </p>
           </div>
         </div>
