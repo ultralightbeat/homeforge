@@ -8,7 +8,7 @@ import PaymentModal from "./components/PaymentModal";
 import CartManager from "./components/CartManager";
 import { SortByName, SortByPrice } from "./components/SortingStrategies";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Header.css'; 
+
 
 
 

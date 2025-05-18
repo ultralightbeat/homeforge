@@ -1,19 +1,10 @@
 import React, { useState } from 'react';
 import { FaShoppingCart } from "react-icons/fa";
 import Order from './Order';
-import '../Header.css'; 
+import BurgerMenu from './BurgerMenu'; // Убедись, что путь корректный
 
-/**
- * Функция для отображения списка заказов.
- * @param {object} props - Свойства компонента.
- * @param {Array<object>} props.orders - Список заказов.
- * @param {Function} props.onDelete - Функция для удаления заказа.
- * @param {Function} props.openPaymentModal - Функция для открытия модального окна оплаты.
- * @returns {JSX.Element} Элемент списка заказов.
- */
 const showOrders = (props) => {
   const totalPrice = props.orders.reduce((acc, order) => acc + order.price * order.count, 0);
-
   return (
     <div>
       {props.orders.map(el => (
@@ -25,64 +16,43 @@ const showOrders = (props) => {
   );
 };
 
-/**
- * Функция для отображения пустой корзины.
- * @returns {JSX.Element} Элемент с информацией о пустой корзине.
- */
 const showNothing = () => (
   <div className='empty'>
     <h2>Корзина пуста</h2>
   </div>
 );
 
-/**
- * Функциональный компонент для отображения заголовка страницы.
- * @param {object} props - Свойства компонента.
- * @param {Array<object>} props.orders - Список заказов.
- * @param {Function} props.onDelete - Функция для удаления заказа.
- * @param {Function} props.openPaymentModal - Функция для открытия модального окна оплаты.
- * @returns {JSX.Element} Элемент заголовка страницы.
- */
-// Header.js
-
 export default function Header(props) {
   const [cartOpen, setCartOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // для бургера
+
+  const navLinks = [
+    { title: 'О нас' },
+    { title: 'Контакты' },
+    { title: 'Кабинет' }
+  ];
 
   return (
     <header>
       <div className="header-container">
         <span className='logo'>House staff</span>
 
-        {/* Бургер-иконка */}
-        <button 
-          className="burger" 
-          onClick={() => setMenuOpen(!menuOpen)} 
-          aria-label="Toggle menu"
-        >
-          ☰
-        </button>
-
-        {/* Навигация */}
-        <ul className={`nav ${menuOpen ? 'active' : ''}`}>
-          <li>О нас</li>
-          <li>Контакты</li>
-          <li>Кабинет</li>
-        </ul>
+        {/* Меню */}
+        <BurgerMenu navLinks={navLinks} />
 
         {/* Корзина */}
         <FaShoppingCart 
-          onClick={() => setCartOpen(cartOpen => !cartOpen)} 
-          className={`shop-cart-button ${cartOpen && 'active'}`} 
+          onClick={() => setCartOpen(prev => !prev)} 
+          className={`shop-cart-button ${cartOpen ? 'active' : ''}`} 
           role="button" 
           aria-label="shopping cart" 
         />
-        {cartOpen && (
-          <div className='shop-cart'>
-            {props.orders.length > 0 ? showOrders(props) : showNothing()}
-          </div>
-        )}
       </div>
+
+      {cartOpen && (
+        <div className='shop-cart'>
+          {props.orders.length > 0 ? showOrders(props) : showNothing()}
+        </div>
+      )}
 
       <div className='presentation'></div>
     </header>
