@@ -10,19 +10,20 @@ body {
 }
 
 
-@media (max-width: 991px) {
+@media (max-width: 767px) {
   main .item {
     width: calc(50% - 10px); /* 2 товара */
     min-width: 280px;
+    margin-left: 80px;
   }
 }
 
 /* Мобильный (до 767px) */
-@media (max-width: 767px) {
+@media (max-width:400px) {
   main .item {
     width: 100%; /* 1 товар */
     max-width: 440px;
-    margin-left: auto;
+    margin-left: 130px;
     margin-right: auto;
   }
 }
