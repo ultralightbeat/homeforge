@@ -10,28 +10,20 @@ body {
 }
 
 
-
-/* Мобильный стиль */
-@media (max-width: 768px) {
-  .item {
-    width: 100%;  /* На маленьких экранах карточки товаров занимают всю ширину */
-    margin: 10px 0;
+@media (max-width: 991px) {
+  main .item {
+    width: calc(50% - 10px); /* 2 товара */
+    min-width: 280px;
   }
-
-  main {
-    padding: 10px;
-  }
-
-  
 }
 
-/* На экранах меньше 480px */
-@media (max-width: 480px) {
-  .item {
-    width: 100%;
-    margin: 10px 0;
+/* Мобильный (до 767px) */
+@media (max-width: 767px) {
+  main .item {
+    width: 100%; /* 1 товар */
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
   }
-
-
 }
   

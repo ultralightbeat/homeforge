@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaShoppingCart } from "react-icons/fa";
 import Order from './Order';
+import '../Header.css'; 
 
 /**
  * Функция для отображения списка заказов.
@@ -42,18 +43,34 @@ const showNothing = () => (
  * @param {Function} props.openPaymentModal - Функция для открытия модального окна оплаты.
  * @returns {JSX.Element} Элемент заголовка страницы.
  */
+// Header.js
+
 export default function Header(props) {
-  let [cartOpen, setCartOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // для бургера
 
   return (
     <header>
-      <div>
+      <div className="header-container">
         <span className='logo'>House staff</span>
-        <ul className='nav'>
+
+        {/* Бургер-иконка */}
+        <button 
+          className="burger" 
+          onClick={() => setMenuOpen(!menuOpen)} 
+          aria-label="Toggle menu"
+        >
+          ☰
+        </button>
+
+        {/* Навигация */}
+        <ul className={`nav ${menuOpen ? 'active' : ''}`}>
           <li>О нас</li>
           <li>Контакты</li>
           <li>Кабинет</li>
         </ul>
+
+        {/* Корзина */}
         <FaShoppingCart 
           onClick={() => setCartOpen(cartOpen => !cartOpen)} 
           className={`shop-cart-button ${cartOpen && 'active'}`} 
@@ -66,6 +83,7 @@ export default function Header(props) {
           </div>
         )}
       </div>
+
       <div className='presentation'></div>
     </header>
   );
