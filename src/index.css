@@ -670,13 +670,14 @@ main b, .full-item b{
 
 main b, .full-item b{
   position: absolute;
-  bottom: 10px;
-  left: 5px;
+  bottom: -30px;
+  
   color: #5fa36a;
   font-size: 16px;
 }
 
-main .add-to-cart {
+main .add-to-cart,
+.full-item .add-to-cart {
   position: absolute;
   right: 20px;
   bottom: 20px;
@@ -698,6 +699,42 @@ main .add-to-cart:hover,
 .full-item .add-to-cart:hover{
   transform: scale(1.05) translateY(-5px);
 }  
+
+@media (max-width: 768px) {
+  .full-item .item-details {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .full-item .item-details > div:first-child {
+    flex: none;
+    width: 100%;
+  }
+
+  .full-item .item-details > div:nth-child(2) {
+    flex: none;
+    width: 100%;
+  }
+
+  .full-item .add-to-cart {
+
+    align-self: flex-end;
+    margin: -20px 20px 20px auto;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .full-item .add-to-cart {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    margin: -15px 15px 15px auto;
+  }
+}
+
 
 footer{
   text-align: center;

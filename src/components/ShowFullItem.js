@@ -19,7 +19,7 @@ export class ShowFullItem extends Component {
 
         <div>
           {/* Изображение товара */}
-          <img className='item-img' src={"./img/" + this.props.item.img} onClick={() => this.props.onShowItem(this.props.item)} />
+          <img alt={this.props.item.title || "Товар"} className='item-img' src={"./img/" + this.props.item.img} onClick={() => this.props.onShowItem(this.props.item)} />
         </div>
           <div className='item-details'>
           <h2>{this.props.item.title}</h2>
