@@ -259,6 +259,47 @@ header .presentation::before{
   color: #fff;
 }
 
+/* Планшеты и маленькие экраны */
+@media (max-width: 768px) {
+  header .presentation::after,
+  header .presentation::before {
+    left: 30px;
+    right: 30px;
+    width: auto;
+    text-align: left;
+  }
+
+  header .presentation::after {
+    top: 80px;
+    font-size: 28px;
+  }
+
+  header .presentation::before {
+    top: 120px;
+    font-size: 14px;
+  }
+}
+
+/* Мобильные устройства (до 480px) */
+@media (max-width: 480px) {
+  header .presentation::after,
+  header .presentation::before {
+    left: 20px;
+    right: 20px;
+    text-align: center;
+  }
+
+  header .presentation::after {
+    top: 100px;
+    font-size: 22px;
+  }
+
+  header .presentation::before {
+    top: 180px;
+    font-size: 13px;
+  }
+}
+
 #Модель 
 
 .modal-overlay {
@@ -316,7 +357,43 @@ header .presentation::before{
 .categories-list .title-button:hover{
   border-color: silver;
   transform: scale(1.1);
+}
 
+
+/* Маленькие планшеты и большие телефоны (до 768px) */
+@media (max-width: 768px) {
+  .categories div,
+  .categories-list .cat-button,
+  .categories-list .price-button,
+  .categories-list .title-button {
+    padding: 6px 14px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    margin-right: 8px;
+  }
+
+  /* Делаем кнопки более компактными, если экран маленький */
+  .categories-list {
+    flex-wrap: wrap;
+  }
+}
+
+/* Мобильные устройства (до 480px) */
+@media (max-width: 480px) {
+  .categories div,
+  .categories-list .cat-button,
+  .categories-list .price-button,
+  .categories-list .title-button {
+    padding: 5px 12px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    margin-right: 6px;
+  }
+
+  /* Чтобы кнопки не выходили за границы */
+  .categories-list {
+    flex-wrap: wrap;
+  }
 }
 
 
@@ -624,7 +701,7 @@ main {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 main .item {

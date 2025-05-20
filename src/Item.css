@@ -14,7 +14,8 @@ body {
   main .item {
     width: calc(50% - 10px); /* 2 товара */
     min-width: 280px;
-    margin-left: 80px;
+    margin-right: 40px;
+    margin-left: 70px;
   }
 }
 
@@ -23,8 +24,8 @@ body {
   main .item {
     width: 100%; /* 1 товар */
     max-width: 440px;
-    margin-left: 130px;
-    margin-right: auto;
+    
+    margin-right: 80px;
   }
 }
   
