@@ -144,8 +144,8 @@ header .logo {
 header .shop-cart-button {
   cursor: pointer;
   transition: color, transform 500ms ease;
-  margin-top: 4px;
   z-index: 101;
+  font-size: 24px;
 }
 
 header .shop-cart-button:hover,
@@ -815,6 +815,6 @@ main .add-to-cart:hover,
 
 footer{
   text-align: center;
-  margin: 100px;
+
 }
 

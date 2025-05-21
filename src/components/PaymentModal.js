@@ -209,7 +209,7 @@ export  class PaymentModal extends Component {
             <h3>Выберите способ оплаты</h3>
             <div className="payment-buttons-method">
               <button type="button" className="button-card"  onClick={() => this.handlePaymentMethodChange('card')}>Картой</button>
-              <button type="button" className="button-bonus" onClick={() => this.handlePaymentMethodChange('bonuses')}>Бонусами</button>
+              {/* <button type="button" className="button-bonus" onClick={() => this.handlePaymentMethodChange('bonuses')}>Бонусами</button> */}
             </div>
 
             {errorMessage && (

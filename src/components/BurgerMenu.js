@@ -3,12 +3,27 @@ import React, { useState } from 'react';
 const BurgerMenu = ({ navLinks }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleClick = (link, e) => {
+    if (link.onClick) {
+      e.preventDefault(); // ✅ Теперь e точно есть
+      link.onClick(e); // ✅ Передаём событие в пользовательский обработчик
+    }
+    setMenuOpen(false); // Закрываем меню после клика
+  };
+
   return (
     <>
       {/* Десктопное горизонтальное меню */}
       <ul className="header-nav">
         {navLinks.map((link, index) => (
-          <li key={index}>{link.title}</li>
+          <li key={index}>
+            <a 
+              href={link.href || '#'} 
+              onClick={(e) => handleClick(link, e)}
+            >
+              {link.title}
+            </a>
+          </li>
         ))}
       </ul>
 
@@ -24,8 +39,13 @@ const BurgerMenu = ({ navLinks }) => {
       {/* Мобильное вертикальное меню */}
       <ul className={`burger-nav ${menuOpen ? 'active' : ''}`}>
         {navLinks.map((link, index) => (
-          <li key={index} onClick={() => setMenuOpen(false)}>
-            {link.title}
+          <li key={index}>
+            <a 
+              href={link.href || '#'} 
+              onClick={(e) => handleClick(link, e)}
+            >
+              {link.title}
+            </a>
           </li>
         ))}
       </ul>

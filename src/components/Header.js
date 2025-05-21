@@ -1,7 +1,8 @@
+// Header.jsx
 import React, { useState } from 'react';
 import { FaShoppingCart } from "react-icons/fa";
 import Order from './Order';
-import BurgerMenu from './BurgerMenu'; // Убедись, что путь корректный
+import BurgerMenu from './BurgerMenu';
 
 const showOrders = (props) => {
   const totalPrice = props.orders.reduce((acc, order) => acc + order.price * order.count, 0);
@@ -25,10 +26,18 @@ const showNothing = () => (
 export default function Header(props) {
   const [cartOpen, setCartOpen] = useState(false);
 
+  const handleContactClick = (e) => {
+    e.preventDefault();
+    const contactSection = document.getElementById('contacts');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const navLinks = [
-    { title: 'О нас' },
-    { title: 'Контакты' },
-    { title: 'Кабинет' }
+    { title: 'О нас', href: '/about_us' }, // Можно добавить реальные якоря
+    { title: 'Контакты', href: '#contacts', onClick: handleContactClick },
+    { title: 'Кабинет', href: '#' }
   ];
 
   return (

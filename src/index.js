@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-////import './Footer.css';
+import './Footer.css';
 import './Header.css';
 //import './PaymentModal.css';
 import './Order.css';

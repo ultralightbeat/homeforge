@@ -17,9 +17,13 @@ body {
     margin-right: 40px;
     margin-left: 70px;
   }
+  main .add-to-cart {
+    bottom: 5px;
+    width: 25px;
+    height: 25px;
+ 
+  }
 }
-
-/* Мобильный (до 767px) */
 @media (max-width:400px) {
   main .item {
     width: 100%; /* 1 товар */

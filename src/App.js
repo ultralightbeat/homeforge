@@ -8,6 +8,9 @@ import PaymentModal from "./components/PaymentModal";
 import CartManager from "./components/CartManager";
 import { SortByName, SortByPrice } from "./components/SortingStrategies";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// Новая страница
+import AboutUs from "./pages/AboutUs"; // импортируем новую страницу
 
 
 
@@ -394,44 +397,46 @@ class App extends React.Component {
    */
   render() {
     return (
-      <div className="wrapper">
-        <Header 
-          orders={this.state.orders} 
-          onDelete={this.deleteOrder} 
-          openPaymentModal={this.openPaymentModal} 
-        />
-        <Categories 
-          chooseCategory={this.chooseCategory} 
-          setSortStrategy={this.setSortStrategy}
-        />
-        <Items 
-          onShowItem={this.onShowItem} 
-          items={this.state.currentItems} 
-          onAdd={this.addToOrder} 
-        />
-        {this.state.showFullItem && 
-          <ShowFullItem 
-            onAdd={this.addToOrder} 
-            onShowItem={this.onShowItem} 
-            item={this.state.fullItem} 
-          />}
-        <Footer />
+      <Router>
+        <div className="wrapper">
+          <Header orders={this.state.orders} onDelete={this.deleteOrder} openPaymentModal={this.openPaymentModal} />
+          
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Categories chooseCategory={this.chooseCategory} setSortStrategy={this.setSortStrategy} />
+                <Items onShowItem={this.onShowItem} items={this.state.currentItems} onAdd={this.addToOrder} />
+                {this.state.showFullItem && 
+                  <ShowFullItem 
+                    onAdd={this.addToOrder} 
+                    onShowItem={this.onShowItem} 
+                    item={this.state.fullItem} 
+                  />}
+              </>
+            } />
 
-        {this.state.isPaymentModalOpen && (
-          <div className="payment-modal-overlay">
-            <div className="payment-modal">
-              <PaymentModal 
-                itemsForPayment={this.state.orders}
-                onClose={this.closePaymentModal}
-                onDelete={this.deleteOrder}
-                onClearCart={this.handleClearCart}
-                availableBonus={this.state.availableBonus}
-                onUpdateBonusPoints={this.UpdateBonusPoints}
-              />
+            <Route path="/about_us" element={<AboutUs />} />
+          </Routes>
+
+          <Footer />
+          
+          {/* Попап корзины и т.д. */}
+          {this.state.isPaymentModalOpen && (
+            <div className="payment-modal-overlay">
+              <div className="payment-modal">
+                <PaymentModal 
+                  itemsForPayment={this.state.orders}
+                  onClose={this.closePaymentModal}
+                  onDelete={this.deleteOrder}
+                  onClearCart={this.handleClearCart}
+                  availableBonus={this.state.availableBonus}
+                  onUpdateBonusPoints={this.UpdateBonusPoints}
+                />
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </Router>
     );
   }
 }
